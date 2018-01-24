@@ -1,0 +1,26 @@
+<% layout('layout') -%>
+    <div id="dvLogin">
+        <form class="form-signin" id="loginForm">
+            <i class="fa fa-building fa-5x" aria-hidden="true"></i>
+            <br/>
+            <br/>
+            <h1 class="h3 mb-3 font-weight-normal">Janhavi Meadows Apartment Owner's Association</h1>
+            <label for="inputEmail" class="sr-only">Email address</label>
+            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" value="remember-me"> Remember me
+                </label>
+            </div>
+            <button id="btnsubmit" class="btn btn-lg btn-primary btn-block" type="submit">
+                <i id="loadingicon" class="fa fa-refresh fa-spin d-none"></i>Sign in</button>
+        </form>
+    </div>
+    <script src="/javascripts/app/Plugin.User.js"></script>
+    <script>        
+        $(function () {
+            $("#dvLogin").UserPlugin({});
+        });
+    </script>

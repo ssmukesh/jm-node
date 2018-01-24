@@ -2,4 +2,4 @@
 JM apartment accounting API
 
 * http://localhost:3000/
-* https://janhavimeadows-api.herokuapp.com/
+* https://janhavimeadows.herokuapp.com/
