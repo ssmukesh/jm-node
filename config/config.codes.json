@@ -1,0 +1,22 @@
+{
+    "AppMessageCodes": {
+        "success": {
+            "API": [
+                {
+                    "code": "1000",
+                    "message": "getUserInfoByEmail",
+                    "detail": "getUserInfoByEmail"
+                }
+            ]
+        },
+        "error": {
+            "API": [
+                {
+                    "code": "2000",
+                    "message": "saveuserinfo",
+                    "detail": "Please contact the server administrator, you@example.com and inform them of the time the error occurred, and anything you might have done that may have caused the error."
+                }                
+            ]
+        }
+    }
+}

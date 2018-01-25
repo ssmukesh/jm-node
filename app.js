@@ -33,5 +33,6 @@ app.use(session({ resave: false, saveUninitialized: false, secret: 'JMAccounting
 var userRoutes = require('./routes/user');
 
 app.use(userRoutes);
+app.use("/api", userRoutes);
 
 module.exports = app;

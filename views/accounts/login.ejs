@@ -1,4 +1,4 @@
-<% layout('layout') -%>
+<% layout('layout-login') -%>
     <div id="dvLogin">
         <form class="form-signin" id="loginForm">
             <i class="fa fa-building fa-5x" aria-hidden="true"></i>
@@ -18,9 +18,13 @@
                 <i id="loadingicon" class="fa fa-refresh fa-spin d-none"></i>Sign in</button>
         </form>
     </div>
+
+    <script src="/javascripts/app/Plugin.PNotify.js"></script>
     <script src="/javascripts/app/Plugin.User.js"></script>
-    <script>        
+
+    <script>
         $(function () {
+            $("#dvLogin").PNotifyPlugin({});
             $("#dvLogin").UserPlugin({});
         });
     </script>

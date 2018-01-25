@@ -19,13 +19,31 @@
     // minified (especially when both are regularly referenced in your plugin).
 
     var // plugin name
-        pluginName = "pluginName",
+        pluginName = "PNotifyPlugin",
         // key using in $.data()
         dataKey = "plugin_" + pluginName;
 
-    var privateMethod = function () {
-        // ...
-    };
+    function _Settings(options) {
+        // PNotify.defaults.styling = "material";
+        // PNotify.defaults.icons = "material";
+    }
+    
+    function _DesktopSettings(options) {
+        PNotify.desktop.permission();
+    }
+
+    function _show_stack_bar_top(options, type) {
+        var opts = {
+            title: "Over Here",
+            text: "Check me out. I'm in a different stack."
+        };
+        opts.title = type.title;
+        opts.text = type.text;
+        opts.type = type.type;
+
+        new PNotify(opts);
+    }
+
 
     var Plugin = function (element, options) {
         this.element = element;
@@ -45,14 +63,9 @@
         // initialize options
         init: function (options) {
             $.extend(this.options, options);
-
-            /*
-             * Update plugin for options
-             */
         },
-
-        publicMethod: function () {
-            // ...
+        showStack_bar_top: function (type) {
+            _show_stack_bar_top(this, type);
         }
     };
 

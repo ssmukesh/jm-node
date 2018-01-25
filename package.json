@@ -19,7 +19,8 @@
     "morgan": "~1.9.0",
     "path": "^0.12.7",
     "pnotify": "^3.2.1",
-    "serve-favicon": "~2.4.5"
+    "serve-favicon": "~2.4.5",
+    "lodash": "^4.17.4"
   },
   "repository": {
     "type": "git",

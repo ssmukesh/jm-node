@@ -19,7 +19,7 @@
     // minified (especially when both are regularly referenced in your plugin).
 
     var // plugin name
-        pluginName = "pluginName",
+        pluginName = "HomePlugin",
         // key using in $.data()
         dataKey = "plugin_" + pluginName;
 
