@@ -8,6 +8,10 @@ router.get('/', function (req, res) {
     res.render('accounts/login');
 });
 
+router.get('/signout', function (req, res) {
+    res.render('accounts/signout');
+});
+
 router.post('/saveuserinfo', function (req, res) {
     if (req.body.email && !_jsQuery.isEmpty(req.body.email)) {
 

@@ -31,8 +31,12 @@ app.use(session({ resave: false, saveUninitialized: false, secret: 'JMAccounting
 
 //add these routes, it works once receive url request
 var userRoutes = require('./routes/user');
+var helperRoutes = require('./routes/helper');
+var quickbooksRoutes = require('./routes/quickbooks');
 
 app.use(userRoutes);
 app.use("/api", userRoutes);
+app.use("/api/helper", helperRoutes);
+app.use("/quickbooks", quickbooksRoutes);
 
 module.exports = app;

@@ -23,36 +23,51 @@
         // key using in $.data()
         dataKey = "plugin_" + pluginName;
 
-    var privateMethod = function () {
-        // ...
-    };
-
     var Plugin = function (element, options) {
         this.element = element;
 
         this.options = {
             // default options
+            error_msg: {
+                systemError: "Please contact the server administrator, inform them of the time the error occurred, and anything you might have done that may have caused the error."
+            },
+            helper_defaults: "",
+            notifySettings: ""
         };
-
-        /*
-         * Initialization
-         */
-
         this.init(options);
     };
+
+    function showPNotifyAlert(options, notifySettings) {
+        options.notifySettings = notifySettings;
+        $("#dvHome").PNotifyPlugin().showStack_bar_top(options.notifySettings);
+    }
+
+    function getCompanyInfo(options) {
+
+        $.ajax({
+            url: options.helper_defaults.JSON.app_Config.issuer + options.helper_defaults.JSON.app_Config.endpoint.getCompanyInfo,
+            type: 'GET',
+            xhrFields: { withCredentials: true },
+            cache: false,
+            success: function (data) {
+                if (data.status && (_.isEqual(data.status.code, "2130"))) {
+                    showPNotifyAlert(options, { title: "Having Trouble Signing On?", text: data.status.detail, type: "error" });
+                }
+                else {
+                }
+            },
+            error: function () {
+                showPNotifyAlert(options, { title: "Internal Server Error", text: options.error_msg.systemError, type: "error" });
+            }
+        });
+
+    }
 
     Plugin.prototype = {
         // initialize options
         init: function (options) {
             $.extend(this.options, options);
-
-            /*
-             * Update plugin for options
-             */
-        },
-
-        publicMethod: function () {
-            // ...
+            getCompanyInfo(this.options);
         }
     };
 

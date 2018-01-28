@@ -1,10 +1,15 @@
 <% layout('layout-home') -%>
+    <script src="/javascripts/app/Plugin.PNotify.js"></script>
+    <script src="/javascripts/app/Plugin.Helper.js"></script>
+    <script src="/javascripts/app/Plugin.Home.js"></script>
+
     <div id="dvHome">
 
     </div>
     <script>
         $(function () {
-            $("dvHome").PNotifyPlugin();
-            $("dvHome").HomePlugin();
+            $("#dvHome").HelperPlugin({});
+            $("#dvHome").PNotifyPlugin();
+            $("#dvHome").HomePlugin();
         });
     </script>

@@ -27,16 +27,12 @@
         this.element = element;
 
         this.options = {
-            // default options
-            // issuer: "https://janhavimeadows-api.herokuapp.com/",
-            issuer: "http://localhost:3000/",
-            endpoint: {
-                authorization: "api/userInfo/connecttojm",
-                saveUserInfo: "api/saveuserinfo"
-            },
+            // default options            
             error_msg: {
                 systemError: "Please contact the server administrator, inform them of the time the error occurred, and anything you might have done that may have caused the error."
-            }
+            },
+            helper_defaults: "",
+            notifySettings: ""
         };
 
         /*
@@ -75,7 +71,7 @@
             contentType: 'application/json',
             xhrFields: { withCredentials: true },
             cache: false,
-            url: options.issuer + options.endpoint.authorization,
+            url: options.helper_defaults.JSON.app_Config.issuer + options.helper_defaults.JSON.app_Config.endpoint.authorization,
             success: function (data) {
                 console.log(data);
                 showHideLoading(false);
@@ -104,7 +100,7 @@
             contentType: 'application/json',
             xhrFields: { withCredentials: true },
             cache: false,
-            url: options.endpoint.saveUserInfo,
+            url: options.helper_defaults.JSON.app_Config.endpoint.saveUserInfo,
             success: function (data) {
                 console.log(data);
                 showHideLoading(false);
@@ -137,6 +133,7 @@
         // initialize options
         init: function (options) {
             $.extend(this.options, options);
+            this.options.helper_defaults = $("#dvLogin").HelperPlugin().getOptions();
             _registerEvents(this.options);
         },
     };

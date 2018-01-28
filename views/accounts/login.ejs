@@ -20,10 +20,12 @@
     </div>
 
     <script src="/javascripts/app/Plugin.PNotify.js"></script>
+    <script src="/javascripts/app/Plugin.Helper.js"></script>
     <script src="/javascripts/app/Plugin.User.js"></script>
 
     <script>
         $(function () {
+            $("#dvLogin").HelperPlugin({});
             $("#dvLogin").PNotifyPlugin({});
             $("#dvLogin").UserPlugin({});
         });
