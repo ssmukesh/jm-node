@@ -19,69 +19,58 @@
     // minified (especially when both are regularly referenced in your plugin).
 
     var // plugin name
-        pluginName = "HelperPlugin",
+        pluginName = "PNotifyPlugin",
         // key using in $.data()
         dataKey = "plugin_" + pluginName;
+
+    function _Settings(options) {
+        // PNotify.defaults.styling = "material";
+        // PNotify.defaults.icons = "material";
+    }
+
+    function _DesktopSettings(options) {
+        PNotify.desktop.permission();
+    }
+
+    function _show_stack_bar_top(options, type) {
+        var opts = {
+            title: "Over Here",
+            text: "Check me out. I'm in a different stack."
+        };
+        opts.title = type.title;
+        opts.text = type.text;
+        opts.type = type.type;
+        opts.animate = {
+            animate: true,
+            in_class: 'zoomInLeft',
+            out_class: 'zoomOutRight'
+        };
+
+        new PNotify(opts);
+    }
+
 
     var Plugin = function (element, options) {
         this.element = element;
 
         this.options = {
-            JSON: {
-                config_codes: "",
-                app_Config: ""
-            }
+            // default options
         };
+
+        /*
+         * Initialization
+         */
 
         this.init(options);
     };
-
-    function _get_JSON(options, fileDetails, callback) {
-        $.ajax({
-            url: '/api/helper/loadJson',
-            type: 'GET',
-            data: fileDetails,
-            xhrFields: { withCredentials: true },
-            cache: false,
-            success: function (response) {
-                console.log(response.data);
-                callback(response);
-            },
-            error: function (err) {
-                callback(null);
-                console.log('error' + err);
-            }
-        });
-    }
-
-    function _loadConfigValues(options) {
-        _get_JSON(options, { name: "config.codes.json", path: "../config/" }, function (config_code) {
-            if (_.isNull(config_code) || _.isNull(config_code.data)) {
-                options.JSON.config_codes = "";
-            }
-            else {
-                options.JSON.config_codes = config_code.data;
-
-                _get_JSON(options, { name: "app.config.json", path: "../config/" }, function (app_config) {
-                    if (_.isNull(app_config) || _.isNull(app_config.data)) {
-                        options.JSON.app_Config = "";
-                    }
-                    else {
-                        options.JSON.app_Config = app_config.data;
-                    }
-                });
-            }
-        });
-    }
 
     Plugin.prototype = {
         // initialize options
         init: function (options) {
             $.extend(this.options, options);
-            _loadConfigValues(this.options);
         },
-        getOptions: function (options) {
-            return this.options;
+        showStack_bar_top: function (type) {
+            _show_stack_bar_top(this.options, type);
         }
     };
 

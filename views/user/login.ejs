@@ -14,19 +14,8 @@
                     <input type="checkbox" value="remember-me"> Remember me
                 </label>
             </div>
-            <button id="btnsubmit" class="btn btn-lg btn-primary btn-block" type="submit">
-                <i id="loadingicon" class="fa fa-refresh fa-spin d-none"></i>Sign in</button>
+            <button id="btnsubmit" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
         </form>
     </div>
-
-    <script src="/javascripts/app/Plugin.PNotify.js"></script>
-    <script src="/javascripts/app/Plugin.Helper.js"></script>
-    <script src="/javascripts/app/Plugin.User.js"></script>
-
-    <script>
-        $(function () {
-            $("#dvLogin").HelperPlugin({});
-            $("#dvLogin").PNotifyPlugin({});
-            $("#dvLogin").UserPlugin({});
-        });
-    </script>
+    <script src="/javascripts/app/user/Plugin.User.js"></script>
+    <script src="/javascripts/app/user/login.js"></script>

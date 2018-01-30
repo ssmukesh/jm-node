@@ -5,11 +5,11 @@ const helper = require('../Utils/helper');
 var _jsQuery = require('lodash');
 
 router.get('/', function (req, res) {
-    res.render('accounts/login');
+    res.render('user/login');
 });
 
-router.get('/signout', function (req, res) {
-    res.render('accounts/signout');
+router.get('/signout', function (req, res) {    
+    res.render('user/signout');
 });
 
 router.post('/saveuserinfo', function (req, res) {

@@ -18,20 +18,21 @@
 </head>
 
 <body class="text-center">
-    <% include ./partials/javascriptOnly%>        
-        <%- body -%>
-            <footer class="mastfoot">
-                <div class="inner">
-                    <p>
-                        <a href="https://JanhaviMeadows.com/">Janhavi Meadows</a>, by
-                        <a href="https://www.facebook.com/jaikumar.periyannan">@jaikumar</a>
-                    </p>
-                    <p>
-                        © 2017 Janhavi Meadows Apartment Owner's Association Limited. All rights reserved. Terms and conditions, features, support,
-                        and service options subject to change without notice.
-                    </p>
-                </div>
-            </footer>
+    <% include ./partials/javascriptOnly%>
+        <% include ./partials/CommonJS%>
+            <%- body -%>
+                <footer class="mastfoot">
+                    <div class="inner">
+                        <p>
+                            <a href="https://JanhaviMeadows.com/">Janhavi Meadows</a>, by
+                            <a href="https://www.facebook.com/jaikumar.periyannan">@jaikumar</a>
+                        </p>
+                        <p>
+                            © 2017 Janhavi Meadows Apartment Owner's Association Limited. All rights reserved. Terms and conditions, features, support,
+                            and service options subject to change without notice.
+                        </p>
+                    </div>
+                </footer>
 
 </body>
 

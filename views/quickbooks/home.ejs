@@ -1,15 +1,4 @@
 <% layout('layout-home') -%>
-    <script src="/javascripts/app/Plugin.PNotify.js"></script>
-    <script src="/javascripts/app/Plugin.Helper.js"></script>
-    <script src="/javascripts/app/Plugin.Home.js"></script>
-
-    <div id="dvHome">
-
-    </div>
-    <script>
-        $(function () {
-            $("#dvHome").HelperPlugin({});
-            $("#dvHome").PNotifyPlugin();
-            $("#dvHome").HomePlugin();
-        });
-    </script>
+    <div id="dvHome"></div>
+    <script src="/javascripts/app/quickbooks/home.js"></script>
+    <script src="/javascripts/app/quickbooks/Plugin.Home.js"></script>

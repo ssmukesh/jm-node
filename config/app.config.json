@@ -3,6 +3,8 @@
     "endpoint": {
         "authorization": "api/userInfo/connecttojm",
         "saveUserInfo": "api/saveuserinfo",
-        "getCompanyInfo": "/api/qbSDK/getCompanyInfo"
+        "getCompanyInfo": "api/qbSDK/getCompanyInfo",
+        "refreshtoken": "api/refreshtoken",
+        "refreshQBConfig": "api/userInfo/refreshQBConfig"
     }
 }
