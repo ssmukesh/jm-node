@@ -148,8 +148,19 @@
 
     function _helper_defaults(options) {
         options.helper_defaults = options.container.HelperPlugin().getOptions();
-        options.container.HelperPlugin().Loading(null, false);
-        _getCompanyInfo(options, _refreshToken);
+        this.options.container.HelperPlugin().checkForUnauthorized(this.options, _checkForUnauthorized);
+    }
+
+    function _checkForUnauthorized(options, response) {
+        if (!_.isNull(response.status) && (_.isEqual(response.status.code, "999"))) {
+            _getCompanyInfo(options, _refreshToken);
+        }
+        else if (!_.isNull(response.status) && (_.isEqual(response.status.code, "0000"))) {
+            options.container.HelperPlugin().redirect_signout();
+        }
+        else {
+            options.container.HelperPlugin().redirect_signout();
+        }
     }
 
     Plugin.prototype = {

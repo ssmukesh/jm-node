@@ -123,6 +123,35 @@
         }
     }
 
+    function _checkForUnauthorized(options, timeout_options, timeout_callback) {
+
+        try {
+
+            $.ajax({
+                url: options.JSON.app_Config.endpoint.checkForUnauthorized,
+                type: 'GET',
+                data: fileDetails,
+                xhrFields: { withCredentials: true },
+                cache: false,
+                success: function (response) {
+                    if (timeout_callback) {
+                        timeout_callback(timeout_options, response);
+                    }
+                    else {
+                        Plugin.prototype.redirect_signout(options);
+                    }
+                },
+                error: function (err) {
+                    Plugin.prototype.redirect_signout(options);
+                }
+            });
+
+        } catch (error) {
+
+        }
+
+    }
+
     Plugin.prototype = {
         // initialize options
         init: function (options) {
@@ -150,6 +179,9 @@
         },
         Loading: function (options, isShow) {
             _showHideModalLoading(this.options, isShow);
+        },
+        checkForUnauthorized: function (timeout_options, timeout_callback) {
+            _checkForUnauthorized(this.options, timeout_options, timeout_callback);
         }
     };
 

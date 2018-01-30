@@ -6,6 +6,11 @@
                     "code": "1000",
                     "message": "getUserInfoByEmail",
                     "detail": "getUserInfoByEmail"
+                },
+                {
+                    "code": "999",
+                    "message": "checkForUnauthorized",
+                    "detail": "checkForUnauthorized"
                 }
             ]
         },
@@ -15,7 +20,12 @@
                     "code": "2000",
                     "message": "saveuserinfo",
                     "detail": "Please contact the server administrator, you@example.com and inform them of the time the error occurred, and anything you might have done that may have caused the error."
-                }                
+                },
+                {
+                    "code": "0000",
+                    "message": "checkForUnauthorized",
+                    "detail": "Please contact the server administrator, you@example.com and inform them of the time the error occurred, and anything you might have done that may have caused the error."
+                }
             ]
         }
     }

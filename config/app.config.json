@@ -2,9 +2,10 @@
     "issuer": "http://localhost:3000/",
     "endpoint": {
         "authorization": "api/userInfo/connecttojm",
-        "saveUserInfo": "api/saveuserinfo",
+        "saveUserInfo": "api/user/saveuserinfo",
         "getCompanyInfo": "api/qbSDK/getCompanyInfo",
         "refreshtoken": "api/refreshtoken",
-        "refreshQBConfig": "api/userInfo/refreshQBConfig"
+        "refreshQBConfig": "api/userInfo/refreshQBConfig",
+        "checkForUnauthorized": "checkForUnauthorized"
     }
 }

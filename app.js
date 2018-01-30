@@ -35,8 +35,12 @@ var helperRoutes = require('./routes/helper');
 var quickbooksRoutes = require('./routes/quickbooks');
 
 app.use(userRoutes);
-app.use("/api", userRoutes);
+app.use("/api/user", userRoutes);
 app.use("/api/helper", helperRoutes);
-app.use("/resident", quickbooksRoutes);
+app.use("/api/quickbooks", quickbooksRoutes);
+
+app.get('/', (req, res) => res.render('user/login'));
+app.get('/signout', (req, res) => res.render('user/signout'));
+app.get('/resident/home', (req, res) => res.render('quickbooks/home'));
 
 module.exports = app;

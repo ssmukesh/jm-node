@@ -14,16 +14,4 @@ router.get('/home', function (req, res) {
     res.render('quickbooks/home');
 });
 
-router.get('/expenses', function (req, res) {
-    if (_query.isNull(helper.checkForUnauthorized(req.session))) {
-        res.redirect("/signout");
-    }
-    else {
-        res.render('quickbooks/expenses');
-    }
-
-});
-
-
-
 module.exports = router;
