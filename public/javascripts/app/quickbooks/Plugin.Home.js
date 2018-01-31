@@ -28,9 +28,7 @@
 
         this.options = {
             // default options
-            container: "",
-            helper_defaults: "",
-            timeout: 0
+            container: ""
         };
         this.options.container = element;
         this.init(options);
@@ -40,7 +38,7 @@
 
         try {
             $.ajax({
-                url: options.helper_defaults.JSON.app_Config.issuer + options.helper_defaults.JSON.app_Config.endpoint.refreshtoken,
+                url: JSON_APP_CONFIG.issuer + JSON_APP_CONFIG.endpoint.refreshtoken,
                 type: 'GET',
                 xhrFields: { withCredentials: true },
                 cache: false,
@@ -65,51 +63,17 @@
 
     }
 
-    function _refreshQBConfig(options, callback_getCompanyInfo, callback_refreshToken) {
-
-        try {
-            $.ajax({
-                url: options.helper_defaults.JSON.app_Config.issuer + options.helper_defaults.JSON.app_Config.endpoint.refreshQBConfig,
-                type: 'GET',
-                xhrFields: { withCredentials: true },
-                cache: false,
-                success: function (data) {
-                    if (!_.isNull(data.status) && (_.isEqual(data.status.code, "1060"))) {
-                        options.timeout++;
-                        if (callback_refreshToken && callback_getCompanyInfo) {
-                            callback_getCompanyInfo(options, callback_refreshToken);
-                        }
-                        else {
-                            options.container.HelperPlugin().redirect_signout();
-                        }
-                    }
-                    else if (!_.isNull(data.status) && (_.isEqual(data.status.code, "2060"))) {
-                        options.container.HelperPlugin().redirect_signout();
-                    }
-                    else {
-                        options.container.HelperPlugin().redirect_signout();
-                    }
-                },
-                error: function (error) {
-                    options.container.HelperPlugin().redirect_signout();
-                }
-            });
-        } catch (error) {
-            options.container.HelperPlugin().redirect_signout();
-        }
-
-    }
-
     function _getCompanyInfo(options, callback_refreshToken) {
-
+        options.container.HelperPlugin().Loading(options, true);
         try {
             $.ajax({
-                url: options.helper_defaults.JSON.app_Config.issuer + options.helper_defaults.JSON.app_Config.endpoint.getCompanyInfo,
+                url: JSON_APP_CONFIG.issuer + JSON_APP_CONFIG.endpoint.getCompanyInfo,
                 type: 'GET',
                 xhrFields: { withCredentials: true },
                 cache: false,
                 success: function (data) {
-                    if (!_.isNull(data.status) && (_.isEqual(data.status.code, "2130"))) {
+                    options.container.HelperPlugin().Loading(options, true);
+                    if (!_.isNull(data.status) && (_.isEqual(data.status.code, "0001"))) {
                         if (callback_refreshToken) {
                             callback_refreshToken(options);
                         }
@@ -117,16 +81,8 @@
                             options.container.HelperPlugin().redirect_signout();
                         }
                     }
-                    else if (!_.isNull(data.status) && (_.isEqual(data.status.code, "2140"))) {
-                        if (callback_refreshToken && options.timeout == 0) {
-                            _refreshQBConfig(options, _getCompanyInfo, callback_refreshToken);
-                        }
-                        else if (options.timeout == 1) {
-                            callback_refreshToken(options);
-                        }
-                        else {
-                            options.container.HelperPlugin().redirect_signout();
-                        }
+                    else if (!_.isNull(data.status) && (_.isEqual(data.status.code, "0000"))) {
+                        options.container.HelperPlugin().redirect_signout();
                     }
                     else if (!_.isNull(data.status) && (_.isEqual(data.status.code, "1120"))) {
                         window.location = "expenses";
@@ -136,29 +92,13 @@
                     }
                 },
                 error: function (error) {
+                    options.container.HelperPlugin().Loading(options, false);
                     options.container.HelperPlugin().redirect_signout();
                 }
             });
         }
         catch (error) {
-            options.container.HelperPlugin().redirect_signout();
-        }
-
-    }
-
-    function _helper_defaults(options) {
-        options.helper_defaults = options.container.HelperPlugin().getOptions();
-        this.options.container.HelperPlugin().checkForUnauthorized(this.options, _checkForUnauthorized);
-    }
-
-    function _checkForUnauthorized(options, response) {
-        if (!_.isNull(response.status) && (_.isEqual(response.status.code, "999"))) {
-            _getCompanyInfo(options, _refreshToken);
-        }
-        else if (!_.isNull(response.status) && (_.isEqual(response.status.code, "0000"))) {
-            options.container.HelperPlugin().redirect_signout();
-        }
-        else {
+            options.container.HelperPlugin().Loading(options, false);
             options.container.HelperPlugin().redirect_signout();
         }
     }
@@ -167,9 +107,7 @@
         // initialize options
         init: function (options) {
             $.extend(this.options, options);
-            this.options.timeout = 0;
-            this.options.container.HelperPlugin().Loading(this.options, true);
-            this.options.container.HelperPlugin().loadConfigValues(this.options, _helper_defaults);
+            _getCompanyInfo(this.options, _refreshToken);
         }
     };
 

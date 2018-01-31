@@ -19,7 +19,7 @@
     // minified (especially when both are regularly referenced in your plugin).
 
     var // plugin name
-        pluginName = "UserPlugin",
+        pluginName = "SignoutPlugin",
         // key using in $.data()
         dataKey = "plugin_" + pluginName;
 
@@ -27,65 +27,19 @@
         this.element = element;
 
         this.options = {
-            // default options
-            container: ""            
+            container: ""
         };
-
         this.options.container = element;
         this.init(options);
-    };
-
-    function _login(options) {
-
-        var userInfo = { email: $("#inputEmail").val(), password: $("#inputPassword").val() };
-
-        options.container.HelperPlugin().Loading(options, true);
-
-        try {
-
-            $.ajax({
-                type: 'POST',
-                data: JSON.stringify(userInfo),
-                contentType: 'application/json',
-                xhrFields: { withCredentials: true },
-                cache: false,
-                url: JSON_APP_CONFIG.issuer + JSON_APP_CONFIG.endpoint.authorization,
-                success: function (data) {
-                    console.log(data);
-                    options.container.HelperPlugin().Loading(options, false);
-
-                    if (data.status && (_.isEqual(data.status.code, "2060"))) {
-                        options.container.HelperPlugin().showPNotifyAlert(options, { title: "Having Trouble Signing On?", text: data.status.detail, type: "error" });
-                    }
-                    else if (data.status && (_.isEqual(data.status.code, "0002"))) {
-                        options.container.HelperPlugin().redirect_signout();
-                    }
-                    else if (data.status && (_.isEqual(data.status.code, "1060"))) {
-                        options.container.HelperPlugin().redirect_quickbooks_home();
-                    }
-                    else {
-                        options.container.HelperPlugin().redirect_signout();
-                    }
-                },
-                error: function (error) {
-                    options.container.HelperPlugin().Loading(options, false);
-                    options.container.HelperPlugin().redirect_signout();
-                }
-            });
-
-        }
-        catch (error) {
-            options.container.HelperPlugin().redirect_signout();
-        }
-
     };
 
     function _registerEvents(options) {
 
         try {
-            $("#loginForm").submit(function (event) {
+
+            $("#btnSession").unbind("click").bind("click", function (event) {
                 event.preventDefault();
-                _login(options);
+                options.container.HelperPlugin().redirect_login();
             });
         }
         catch (error) {
@@ -99,7 +53,7 @@
         init: function (options) {
             $.extend(this.options, options);
             _registerEvents(this.options);
-        },
+        }
     };
 
     /*

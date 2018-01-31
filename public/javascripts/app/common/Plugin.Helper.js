@@ -28,11 +28,7 @@
 
         this.options = {
             container: "",
-            JSON: {
-                config_codes: "",
-                app_Config: "",
-                notifySettings: ""
-            },
+            notifySettings: "",
             loadingModal: ""
         };
 
@@ -40,61 +36,6 @@
 
         this.init(options);
     };
-
-    function _get_JSON(options, fileDetails, callback) {
-
-        try {
-            $.ajax({
-                url: '/api/helper/loadJson',
-                type: 'GET',
-                data: fileDetails,
-                xhrFields: { withCredentials: true },
-                cache: false,
-                success: function (response) {
-                    console.log(response.data);
-                    callback(response);
-                },
-                error: function (err) {
-                    Plugin.prototype.redirect_signout(options);
-                }
-            });
-        }
-        catch (error) {
-            Plugin.prototype.redirect_signout(options);
-        }
-
-
-    }
-
-    function _loadConfigValues(options, cb_options, callback) {
-
-        try {
-            _get_JSON(options, { name: "config.codes.json", path: "../config/" }, function (config_code) {
-                if (_.isNull(config_code) || _.isNull(config_code.data)) {
-                    this.redirect_signout(options);
-                }
-                else {
-                    options.JSON.config_codes = config_code.data;
-
-                    _get_JSON(options, { name: "app.config.json", path: "../config/" }, function (app_config) {
-                        if (_.isNull(app_config) || _.isNull(app_config.data)) {
-                            this.redirect_signout(options);
-                        }
-                        else {
-                            options.JSON.app_Config = app_config.data;
-                            if (callback) {
-                                callback(cb_options);
-                            }
-                        }
-                    });
-                }
-            });
-        }
-        catch (error) {
-            Plugin.prototype.redirect_signout(options);
-        }
-
-    }
 
     function _configureModalLoading(options) {
         var modalLoading = `<div class="modal" id="pleaseWaitDialog" data-backdrop="static" data-keyboard=false role="dialog">
@@ -123,33 +64,30 @@
         }
     }
 
-    function _checkForUnauthorized(options, timeout_options, timeout_callback) {
-
-        try {
-
-            $.ajax({
-                url: options.JSON.app_Config.endpoint.checkForUnauthorized,
-                type: 'GET',
-                data: fileDetails,
-                xhrFields: { withCredentials: true },
-                cache: false,
-                success: function (response) {
-                    if (timeout_callback) {
-                        timeout_callback(timeout_options, response);
-                    }
-                    else {
-                        Plugin.prototype.redirect_signout(options);
-                    }
-                },
-                error: function (err) {
-                    Plugin.prototype.redirect_signout(options);
-                }
-            });
-
-        } catch (error) {
-
+    function _getConfig_Codes(options, config) {
+        if (_.isEqual(config.status, "success")) {
+            if (_.isEqual(config.type, "database")) {
+                return _.find(JSON_CONFIG_CODES.AppMessageCodes.success.database, { 'code': config.code });
+            }
+            else if (_.isEqual(config.type, "API")) {
+                return _.find(JSON_CONFIG_CODES.AppMessageCodes.success.API, { 'code': config.code });
+            }
+            else if (_.isEqual(config.type, "QuickBooks")) {
+                return _.find(JSON_CONFIG_CODES.AppMessageCodes.success.QuickBooks, { 'code': config.code });
+            }
         }
-
+        if (_.isEqual(config.status, "error")) {
+            if (_.isEqual(config.type, "database")) {
+                return _.find(JSON_CONFIG_CODES.AppMessageCodes.error.database, { 'code': config.code });
+            }
+            else if (_.isEqual(config.type, "API")) {
+                return _.find(JSON_CONFIG_CODES.AppMessageCodes.error.API, { 'code': config.code });
+            }
+            else if (_.isEqual(config.type, "QuickBooks")) {
+                return _.find(JSON_CONFIG_CODES.AppMessageCodes.error.QuickBooks, { 'code': config.code });
+            }
+        }
+        return null;
     }
 
     Plugin.prototype = {
@@ -158,20 +96,14 @@
             $.extend(this.options, options);
             _configureModalLoading(this.options);
         },
-        loadConfigValues: function (cb_options, callback) {
-            _loadConfigValues(this.options, cb_options, callback);
-        },
-        getOptions: function (options) {
-            if (_.isEmpty(this.options.JSON.config_codes) || _.isEmpty(this.options.JSON.app_Config)) {
-                return null;
-            }
-            return this.options;
-        },
         redirect_signout: function (options) {
             window.location = "/signout";
         },
         redirect_quickbooks_home: function (options) {
             window.location = "/resident/home";
+        },
+        redirect_login: function (options) {
+            window.location = "/";
         },
         showPNotifyAlert: function (options, notifySettings) {
             this.options.notifySettings = notifySettings;
@@ -180,8 +112,8 @@
         Loading: function (options, isShow) {
             _showHideModalLoading(this.options, isShow);
         },
-        checkForUnauthorized: function (timeout_options, timeout_callback) {
-            _checkForUnauthorized(this.options, timeout_options, timeout_callback);
+        GetConfigCodes: function (options, config) {
+            _getConfig_Codes(this.options, config);
         }
     };
 

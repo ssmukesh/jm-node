@@ -1,8 +1,9 @@
 <% layout('layout-login') -%>
-<h1>signout</h1>
-
-<script>
-    $(function () {
-        alert("hi");
-    });
-</script>
+    <main role="main" class="inner cover" id="dvSignout">
+        <p class="lead">Your session will be timed out due to inactivity. Please click on the link below to re-activate your session.</p>
+        <p class="lead">
+            <button type="button" class="btn btn-outline-success" id="btnSession">Click here to activate your session</button>
+        </p>
+    </main>
+    <script src="/javascripts/app/user/Plugin.Signout.js"></script>
+    <script src="/javascripts/app/user/Signout.js"></script>

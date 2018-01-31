@@ -1,4 +1,4 @@
-{
+JSON_CONFIG_CODES={
     "AppMessageCodes": {
         "success": {
             "API": [

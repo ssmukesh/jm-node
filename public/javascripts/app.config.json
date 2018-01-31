@@ -1,0 +1,9 @@
+JSON_APP_CONFIG={
+    "issuer": "https://janhavimeadows-api.herokuapp.com/",
+    "endpoint": {
+        "authorization": "api/userInfo/connecttojm",
+        "getCompanyInfo": "api/qbSDK/getCompanyInfo",
+        "refreshtoken": "api/refreshtoken",
+        "refreshQBConfig": "api/userInfo/refreshQBConfig"
+    }
+}
