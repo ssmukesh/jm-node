@@ -3,6 +3,7 @@ JSON_APP_CONFIG={
     "endpoint": {
         "authorization": "api/userInfo/connecttojm",
         "getCompanyInfo": "api/qbSDK/getCompanyInfo",
+        "findCustomers": "api/qbSDK/findCustomers",
         "refreshtoken": "api/refreshtoken",
         "refreshQBConfig": "api/userInfo/refreshQBConfig"
     }
