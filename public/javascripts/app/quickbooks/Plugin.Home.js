@@ -85,7 +85,7 @@
                         options.container.HelperPlugin().redirect_signout();
                     }
                     else if (!_.isNull(data.status) && (_.isEqual(data.status.code, "1120"))) {
-                        window.location = "expenses";
+                        options.container.HelperPlugin().Loading(options, false);
                     }
                     else {
                         options.container.HelperPlugin().redirect_signout();

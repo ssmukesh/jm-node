@@ -19,10 +19,9 @@
     // minified (especially when both are regularly referenced in your plugin).
 
     var // plugin name
-        pluginName = "TenantsPlugin",
+        pluginName = "MenuPlugin",
         // key using in $.data()
         dataKey = "plugin_" + pluginName;
-
 
 
     var Plugin = function (element, options) {
@@ -35,10 +34,25 @@
         this.init(options);
     };
 
+    function _registerEvents(options) {
+
+        try {
+            $("#mnuTenants").unbind("click").bind("click", function (event) {
+                event.preventDefault();
+                options.container.HelperPlugin().redirect_tenant();
+            });
+        }
+        catch (error) {
+            options.container.HelperPlugin().redirect_signout();
+        }
+
+    };
+
     Plugin.prototype = {
         // initialize options
         init: function (options) {
             $.extend(this.options, options);
+            _registerEvents(this.options);
         }
     };
 

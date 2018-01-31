@@ -28,6 +28,7 @@ app.get('/', (req, res) => res.render('user/login'));
 app.get('/signout', (req, res) => res.render('user/signout'));
 app.get('/resident/home', (req, res) => res.render('quickbooks/home'));
 app.get('/resident/expenses', (req, res) => res.render('quickbooks/expenses'));
+app.get('/resident/view', (req, res) => res.render('quickbooks/tenant-view'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

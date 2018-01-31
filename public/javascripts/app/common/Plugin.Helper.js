@@ -105,6 +105,9 @@
         redirect_login: function (options) {
             window.location = "/";
         },
+        redirect_tenant: function (options) {
+            window.location = "/resident/view";
+        },
         showPNotifyAlert: function (options, notifySettings) {
             this.options.notifySettings = notifySettings;
             this.options.container.PNotifyPlugin().showStack_bar_top(this.options.notifySettings);
