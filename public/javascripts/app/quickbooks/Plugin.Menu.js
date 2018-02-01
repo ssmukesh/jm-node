@@ -37,9 +37,9 @@
     function _registerEvents(options) {
 
         try {
-            $("#mnuTenants").unbind("click").bind("click", function (event) {
+            $("#btnSignOut").unbind("click").bind("click", function (event) {
                 event.preventDefault();
-                options.container.HelperPlugin().redirect_tenant();
+                options.container.HelperPlugin().redirect_login();
             });
         }
         catch (error) {

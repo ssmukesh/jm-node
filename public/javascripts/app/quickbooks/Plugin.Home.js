@@ -28,7 +28,10 @@
 
         this.options = {
             // default options
-            container: ""
+            container: "",
+            tenantsEntity: "",
+            tenantsEJModel: [],
+            tenantsChartsPointsEJModel: []
         };
         this.options.container = element;
         this.init(options);
@@ -86,6 +89,7 @@
                     }
                     else if (!_.isNull(data.status) && (_.isEqual(data.status.code, "1120"))) {
                         options.container.HelperPlugin().Loading(options, false);
+                        options.container.CommonPlugin().findAllTenants(null, _loadTenantsOutstandingChart, null, options);
                     }
                     else {
                         options.container.HelperPlugin().redirect_signout();
@@ -101,6 +105,41 @@
             options.container.HelperPlugin().Loading(options, false);
             options.container.HelperPlugin().redirect_signout();
         }
+    }
+
+    function _loadTenantsOutstandingChart(options) {
+        $("#tenantsChart").ejChart(
+            {
+                series:
+                    [
+                        {
+                            points: options.tenantsChartsPointsEJModel,
+                            marker:
+                                {
+                                    dataLabel:
+                                        {
+                                            visible: true,
+                                            shape: 'none',
+                                            connectorLine: { type: 'bezier', color: 'black' },
+                                            font: { size: '14px' },
+                                            enableContrastColor: true
+                                        }
+                                },
+                            border: { width: 2, color: 'white' },
+                            name: 'tenants_outstanding_chart',
+                            type: 'pie',
+                            enableAnimation: true,
+                            labelPosition: 'outsideExtended',
+                            enableSmartLabels: true, startAngle: 145
+                        }
+                    ],
+                load: "loadTheme",
+                seriesRendering: "seriesRender",
+                title: { text: 'Outstanding' },
+                isResponsive: true,
+                size: { height: "600" },
+                legend: { visible: true }
+            });
     }
 
     Plugin.prototype = {

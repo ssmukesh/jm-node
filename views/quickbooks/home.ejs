@@ -1,5 +1,12 @@
 <% layout('layout-home') -%>
-    <div id="dvHome"></div>
-    <script src="/javascripts/app/quickbooks/home.js"></script>
-    <script src="/javascripts/app/quickbooks/Plugin.Home.js"></script>
-    <script src="/javascripts/app/quickbooks/Plugin.Menu.js"></script>
+    <% include ../partials/syncfusion%>
+        <main role="main" class="container">
+            <div id="dvHome">
+                <div id="tenantsChart">
+                </div>
+            </div>
+        </main>
+        <script src="/javascripts/app/quickbooks/home.js"></script>
+        <script src="/javascripts/app/quickbooks/Plugin.Common.js"></script>
+        <script src="/javascripts/app/quickbooks/Plugin.Menu.js"></script>
+        <script src="/javascripts/app/quickbooks/Plugin.Home.js"></script>
