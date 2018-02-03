@@ -88,8 +88,9 @@
                         options.container.HelperPlugin().redirect_signout();
                     }
                     else if (!_.isNull(data.status) && (_.isEqual(data.status.code, "1120"))) {
-                        options.container.HelperPlugin().Loading(options, false);
-                        options.container.CommonPlugin().findAllTenants(null, _loadTenantsOutstandingChart, null, options);
+                        // options.container.HelperPlugin().Loading(options, false);
+                        // options.container.CommonPlugin().findAllTenants(null, _loadTenantsOutstandingChart, null, options);
+                        options.container.HelperPlugin().redirect_tenant();
                     }
                     else {
                         options.container.HelperPlugin().redirect_signout();
