@@ -160,3 +160,10 @@ body {
   }
   
 }
+
+@media (max-height: 38em) {
+  .mastfoot {
+   display: none
+  }
+  
+}
